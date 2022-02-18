@@ -1,0 +1,152 @@
+swagger: "2.0"
+info:
+  description: "Subscription microservice which provides functionality to the public API"
+  version: "1.0.0"
+  title: "Swagger Subscription microservice API"
+basePath: "/publicback"
+tags:
+- name: "publicback-actions"
+paths:
+  /subscription/all:
+    get:
+      tags:
+      - "publicback-actions"
+      description: "Retrieve all the subscriptions"
+      operationId: "getsubscriptions"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Subscription does not found"
+        "405":
+          description: "Validation exception"
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Subscription"
+  /subscription:
+    get:
+      tags:
+      - "publicback-actions"
+      description: "Retrieve one subscription"
+      operationId: "getOneSubscription"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Subscription added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestOneSubscription"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Subscription does not found"
+        "405":
+          description: "Validation exception"
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Subscription"
+   
+    post:
+      tags:
+      - "publicback-actions"
+      description: "Subscription added to the database"
+      operationId: "newSubscription"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Subscription added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/Subscription"
+      responses:
+        "401":
+          description: "Unauthorized access"
+        "405":
+          description: "Validation exception"
+        "201":
+          description: "Created Succesfully"
+          schema:
+            $ref: "#/definitions/Subscription"
+  /subscription/cancel:
+    put:
+      tags:
+      - "publicback-actions"
+      description: "cancelSubscription in the database"
+      operationId: "cancelSubscription"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Subscription added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/RequestOneSubscription"
+      responses:
+        "401":
+          description: "Unauthorized access"
+        "405":
+          description: "Validation exception"
+        "201":
+          description: "Canceled Succesfully"
+          schema:
+            $ref: "#/definitions/Subscription"
+definitions:
+  RequestOneSubscription:
+    type: "object"
+    required: 
+      - newslettterId
+      - email
+    properties:
+      newslettterId:
+        type: "integer"
+        format: "int64"
+        description: "id of the newsletter campaign"
+      email:
+        type: "string"
+        description: "Subscribed user  email address"
+  Subscription:
+    type: "object"
+    required: 
+      - newslettterId
+      - email
+      - dateOfBirth
+      - consent
+    properties:
+      newslettterId:
+        type: "integer"
+        format: "int64"
+        description: "id of the newsletter campaign"
+      email:
+        type: "string"
+        description: "Subscribed user  email address"
+      gender:
+        type: "string"
+        enum:
+        - "masculine"
+        - "femenine"
+        - "other"
+        description: "Subscribed user's gender"
+      dateOfBirth:
+        type: string
+        format: date
+        description: "Subscribed user date of birth"
+      consent:
+        type: "boolean"
+        description: "Subscribed user has been consented the policy terms"
+        default: false
+    xml:
+      name: "Subscription"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
