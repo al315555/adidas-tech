@@ -116,9 +116,6 @@ definitions:
       - dateOfBirth
       - consent
     properties:
-      id:
-        type: "integer"
-        format: "int64"
       newslettterId:
         type: "integer"
         format: "int64"
