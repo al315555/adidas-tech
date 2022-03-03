@@ -24,12 +24,9 @@ public class SubscriptionService {
         logger.info("Saving subscription");
         logger.debug("Saving subscription: ", subscription );
         final String uri =  subscriptionBaseURL+"/subcriptions-api/subscription";
-        //final String uriEmailSender = emailSenderBaseURL+"/send_email?email="+subscription.getEmail();
          
-        //logger.info(uri, uriEmailSender);
         final RestTemplate restTemplate = new RestTemplate();
         final Subscription result = restTemplate.postForObject(uri, subscription, Subscription.class);
-        //final String resultEmailSender = restTemplate.postForObject(uriEmailSender, null, String.class);
         logger.info("Saved subscription");
         logger.debug("Saved subscription: ", subscription);
         return result;
@@ -60,11 +57,8 @@ public class SubscriptionService {
         logger.info("Removing/cancelling subscription");
         logger.debug("Removing/cancelling: ", body );
         final String uri = subscriptionBaseURL+"/subcriptions-api/subscription/cancel";
-        //final String uriEmailSender = emailSenderBaseURL+"/send_email?email="+body.getEmail();
-        //logger.info(uri, uriEmailSender);
         final RestTemplate restTemplate = new RestTemplate();
         final Subscription result = restTemplate.getForObject(uri, Subscription.class, body);
-        //final String resultEmailSender = restTemplate.postForObject(uri, null, String.class);
         logger.info("Removed/Cancelled subscription");
         logger.debug("Removed/Cancelled subscription: ", body);
         return result;
