@@ -45,7 +45,7 @@ public class SubscriptionService {
 
     public Subscription getOneSubscription(final RequestOneSubscription body) {
          
-        final String uri =  subscriptionBaseURL+"/subcriptions-api/subscription";
+        final String uri = subscriptionBaseURL+"/subcriptions-api/subscription/"+body.getNewslettterId()+"/"+ body.getEmail();
         logger.info(uri);
         final RestTemplate restTemplate = new RestTemplate();
         final Subscription result = restTemplate.getForObject(uri, Subscription.class, body);

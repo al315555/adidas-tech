@@ -38,8 +38,8 @@ public class SubscriptionService {
         return repositoryMongoDB.findAll();
     }
 
-    public Subscription getOneSubscription(final RequestOneSubscription body){
-        return repositoryMongoDB.findByEmail(body.getEmail()).stream().filter(subscription -> body.getNewslettterId().equals(subscription.getNewslettterId())).findFirst().get();
+    public Subscription getOneSubscription(final Long newslettterId, final String email){
+        return repositoryMongoDB.findByEmail(email).stream().filter(subscription -> newslettterId.equals(subscription.getNewslettterId())).findFirst().get();
     }
 
     public Subscription cancelSubscription(final RequestOneSubscription body){

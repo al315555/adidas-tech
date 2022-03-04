@@ -28,9 +28,9 @@ public class SubscriptionsController implements SubscriptionApiDelegate {
     }
 
     @Override
-    public ResponseEntity<Subscription> getOneSubscription(RequestOneSubscription body){
-        if(Objects.nonNull(body) && Objects.nonNull(body.getEmail()) && Objects.nonNull(body.getNewslettterId()))
-            return getResponseEntityWithHeader(subscriptionService.getOneSubscription(body));
+    public ResponseEntity<Subscription> getOneSubscription(Long newslettterId, String email){
+        if(Objects.nonNull(newslettterId) && Objects.nonNull(email) )
+            return getResponseEntityWithHeader(subscriptionService.getOneSubscription(newslettterId, email));
         return ResponseEntity.badRequest().build();
     }
 
