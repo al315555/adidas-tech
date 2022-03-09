@@ -5,12 +5,12 @@ info:
   title: "Swagger Subscription microservice API"
 basePath: "/publicback"
 tags:
-- name: "publicback-actions"
+  - name: "publicback-actions"
 paths:
   /subscription/all:
     get:
       tags:
-      - "publicback-actions"
+        - "publicback-actions"
       description: "Retrieve all the subscriptions"
       operationId: "getsubscriptions"
       responses:
@@ -29,16 +29,16 @@ paths:
   /subscription:
     get:
       tags:
-      - "publicback-actions"
+        - "publicback-actions"
       description: "Retrieve one subscription"
       operationId: "getOneSubscription"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Subscription added to the store"
-        required: true
-        schema:
-          $ref: "#/definitions/RequestOneSubscription"
+        - in: "body"
+          name: "body"
+          description: "Subscription added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/RequestOneSubscription"
       responses:
         "400":
           description: "Invalid ID supplied"
@@ -50,19 +50,19 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/Subscription"
-   
+
     post:
       tags:
-      - "publicback-actions"
+        - "publicback-actions"
       description: "Subscription added to the database"
       operationId: "newSubscription"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Subscription added to the database"
-        required: true
-        schema:
-          $ref: "#/definitions/Subscription"
+        - in: "body"
+          name: "body"
+          description: "Subscription added to the database"
+          required: true
+          schema:
+            $ref: "#/definitions/Subscription"
       responses:
         "401":
           description: "Unauthorized access"
@@ -75,16 +75,16 @@ paths:
   /subscription/cancel:
     put:
       tags:
-      - "publicback-actions"
+        - "publicback-actions"
       description: "cancelSubscription in the database"
       operationId: "cancelSubscription"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Subscription added to the store"
-        required: true
-        schema:
-          $ref: "#/definitions/RequestOneSubscription"
+        - in: "body"
+          name: "body"
+          description: "Subscription added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/RequestOneSubscription"
       responses:
         "401":
           description: "Unauthorized access"
@@ -97,7 +97,7 @@ paths:
 definitions:
   RequestOneSubscription:
     type: "object"
-    required: 
+    required:
       - newslettterId
       - email
     properties:
@@ -110,7 +110,7 @@ definitions:
         description: "Subscribed user  email address"
   Subscription:
     type: "object"
-    required: 
+    required:
       - newslettterId
       - email
       - dateOfBirth
@@ -126,9 +126,9 @@ definitions:
       gender:
         type: "string"
         enum:
-        - "masculine"
-        - "femenine"
-        - "other"
+          - "masculine"
+          - "femenine"
+          - "other"
         description: "Subscribed user's gender"
       dateOfBirth:
         type: string

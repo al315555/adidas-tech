@@ -10,7 +10,7 @@ services:
         - "8081:8080"
     restart: always
     environment:  
-        - "baseurl.emailsender=http://mic-emailsender:8080"
+        - "logging.level.org.springframework.web=DEBUG"
         - "baseurl.subscription=http://mic-subscription:8080"
   mic-subscription:
     build: 
@@ -25,6 +25,8 @@ services:
     depends_on:
         - mongodb
     environment: 
+      - "logging.level.org.springframework.web=DEBUG"
+      - "baseurl.emailsender=http://mic-emailsender:8080"
       - spring.data.mongodb.authentication-database=adidas-subscriptions
       - spring.data.mongodb.database=adidas-subscriptions
       - spring.data.mongodb.host=mongodb
@@ -39,6 +41,8 @@ services:
     ports:
         - "8083:8080"
     restart: always  
+    environment: 
+      - "logging.level.org.springframework.web=DEBUG"
   mongodb:
     image: mongo:latest
     ports:
