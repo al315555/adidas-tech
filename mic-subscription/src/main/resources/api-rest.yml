@@ -5,12 +5,12 @@ info:
   title: "Swagger Subscription microservice API"
 basePath: "/subcriptions-api"
 tags:
-- name: "subcriptions-actions"
+  - name: "subcriptions-actions"
 paths:
   /subscription/all:
     get:
       tags:
-      - "subcriptions-actions"
+        - "subcriptions-actions"
       description: "Retrieve all the subscriptions"
       operationId: "getsubscriptions"
       responses:
@@ -29,7 +29,7 @@ paths:
   /subscription/{newslettterId}/{email}:
     get:
       tags:
-      - "subcriptions-actions"
+        - "subcriptions-actions"
       description: "Retrieve one subscription"
       operationId: "getOneSubscription"
       parameters:
@@ -58,16 +58,16 @@ paths:
   /subscription:
     post:
       tags:
-      - "subcriptions-actions"
+        - "subcriptions-actions"
       description: "Subscription added to the database"
       operationId: "newSubscription"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Subscription added to the database"
-        required: true
-        schema:
-          $ref: "#/definitions/Subscription"
+        - in: "body"
+          name: "body"
+          description: "Subscription added to the database"
+          required: true
+          schema:
+            $ref: "#/definitions/Subscription"
       responses:
         "401":
           description: "Unauthorized access"
@@ -77,32 +77,37 @@ paths:
           description: "Created Succesfully"
           schema:
             $ref: "#/definitions/Subscription"
-  /subscription/cancel:
+  /subscription/cancel/{newslettterId}/{email}:
     put:
       tags:
-      - "subcriptions-actions"
+        - "subcriptions-actions"
       description: "cancelSubscription in the database"
       operationId: "cancelSubscription"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Subscription added to the store"
-        required: true
-        schema:
-          $ref: "#/definitions/RequestOneSubscription"
+        - name: "newslettterId"
+          in: "path"
+          type: "integer"
+          format: "int64"
+          required: true
+          description: "id of the newsletter campaign"
+        - name: "email"
+          in: "path"
+          type: "string"
+          required: true
+          description: "Subscribed user  email address"
       responses:
         "401":
           description: "Unauthorized access"
         "405":
           description: "Validation exception"
         "201":
-          description: "Canceled Succesfully"
+          description: "Created Succesfully"
           schema:
             $ref: "#/definitions/Subscription"
 definitions:
   RequestOneSubscription:
     type: "object"
-    required: 
+    required:
       - newslettterId
       - email
     properties:
@@ -115,7 +120,7 @@ definitions:
         description: "Subscribed user  email address"
   Subscription:
     type: "object"
-    required: 
+    required:
       - newslettterId
       - email
       - dateOfBirth
@@ -131,9 +136,9 @@ definitions:
       gender:
         type: "string"
         enum:
-        - "masculine"
-        - "femenine"
-        - "other"
+          - "masculine"
+          - "femenine"
+          - "other"
         description: "Subscribed user's gender"
       dateOfBirth:
         type: "string"
